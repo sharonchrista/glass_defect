@@ -1,0 +1,14 @@
+*.ckpt
+*.pt
+glass_reference_embeddings.npy
+dataset/
+"*.ckpt" 
+"*.pt" 
+"glass_reference_embeddings.npy" 
+"dataset/" 
+*.ckpt 
+*.pt 
+glass_reference_embeddings.npy 
+dataset/ 
+results/
+*.ckpt

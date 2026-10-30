@@ -1,0 +1,321 @@
+[33mcommit 43b6ec3ce5962df376a8058a1387714dc090bb82[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: sharonchrista <sharonchrista.ai@gmail.com>
+Date:   Fri Oct 30 13:02:41 2026 +0530
+
+    Initial commit: Uchita-Drishti glass defect detection pipeline
+
+ .gitignore                                         |  12 [32m+[m
+ __pycache__/app.cpython-310.pyc                    | Bin [31m0[m -> [32m8138[m bytes
+ dataset/archive.zip                                | Bin [31m0[m -> [32m16568267[m bytes
+ dataset/roboflow.zip                               | Bin [31m0[m -> [32m5267173[m bytes
+ models/glass_reference_embeddings.npy              | Bin [31m0[m -> [32m123008[m bytes
+ models/yolo_best.pt                                | Bin [31m0[m -> [32m6250858[m bytes
+ pipeline/GITHUB_README.md                          |  49 [32m++[m
+ pipeline/GITHUB_SETUP.md                           |  68 [32m+++[m
+ pipeline/PUBLIC_DEPLOY.md                          | 127 [32m+++++[m
+ pipeline/README.md                                 | 101 [32m++++[m
+ pipeline/dashboard/app.py                          | 541 [32m+++++++++++++++++++++[m
+ pipeline/dashboard/requirements_dashboard.txt      |   8 [32m+[m
+ pipeline/dashboard/templates/index.html            | 120 [32m+++++[m
+ pipeline/docs/index.html                           |  88 [32m++++[m
+ pipeline/gitignore                                 |  23 [32m+[m
+ pipeline/scripts/build_glass_reference.py          | 118 [32m+++++[m
+ pipeline/scripts/requirements_train.txt            |  15 [32m+[m
+ pipeline/scripts/train_local.py                    | 258 [32m++++++++++[m
+ requirements.txt                                   |  23 [32m+[m
+ .../latest/weights/lightning/model.ckpt            | Bin [31m0[m -> [32m110735463[m bytes
+ .../glass_defect/v1/weights/lightning/model.ckpt   | Bin [31m0[m -> [32m110735463[m bytes
+ runs/detect/train/BoxF1_curve.png                  | Bin [31m0[m -> [32m190508[m bytes
+ runs/detect/train/BoxPR_curve.png                  | Bin [31m0[m -> [32m114413[m bytes
+ runs/detect/train/BoxP_curve.png                   | Bin [31m0[m -> [32m183276[m bytes
+ runs/detect/train/BoxR_curve.png                   | Bin [31m0[m -> [32m162837[m bytes
+ runs/detect/train/args.yaml                        | 116 [32m+++++[m
+ runs/detect/train/confusion_matrix.png             | Bin [31m0[m -> [32m137342[m bytes
+ runs/detect/train/confusion_matrix_normalized.png  | Bin [31m0[m -> [32m157865[m bytes
+ runs/detect/train/labels.jpg                       | Bin [31m0[m -> [32m98590[m bytes
+ runs/detect/train/results.csv                      |  51 [32m++[m
+ runs/detect/train/results.png                      | Bin [31m0[m -> [32m283541[m bytes
+ runs/detect/train/train_batch0.jpg                 | Bin [31m0[m -> [32m334818[m bytes
+ runs/detect/train/train_batch1.jpg                 | Bin [31m0[m -> [32m323452[m bytes
+ runs/detect/train/train_batch2.jpg                 | Bin [31m0[m -> [32m305130[m bytes
+ runs/detect/train/train_batch200.jpg               | Bin [31m0[m -> [32m244015[m bytes
+ runs/detect/train/train_batch201.jpg               | Bin [31m0[m -> [32m266761[m bytes
+ runs/detect/train/train_batch202.jpg               | Bin [31m0[m -> [32m287840[m bytes
+ runs/detect/train/val_batch0_labels.jpg            | Bin [31m0[m -> [32m477238[m bytes
+ runs/detect/train/val_batch0_pred.jpg              | Bin [31m0[m -> [32m464083[m bytes
+ runs/detect/train/val_batch1_labels.jpg            | Bin [31m0[m -> [32m339113[m bytes
+ runs/detect/train/val_batch1_pred.jpg              | Bin [31m0[m -> [32m334807[m bytes
+ runs/detect/train/weights/best.pt                  | Bin [31m0[m -> [32m6250858[m bytes
+ runs/detect/train/weights/last.pt                  | Bin [31m0[m -> [32m6250858[m bytes
+ setup_folders.bat                                  |  33 [32m++[m
+ weights/yolo26n.pt                                 | Bin [31m0[m -> [32m5544453[m bytes
+ .../glass trained data/image_1775727625.jpg        | Bin [31m0[m -> [32m74172[m bytes
+ .../glass trained data/image_1775727626.jpg        | Bin [31m0[m -> [32m75052[m bytes
+ .../glass trained data/image_1775727709.jpg        | Bin [31m0[m -> [32m114290[m bytes
+ .../glass trained data/image_1775727715.jpg        | Bin [31m0[m -> [32m119611[m bytes
+ .../glass trained data/image_1775727717.jpg        | Bin [31m0[m -> [32m113809[m bytes
+ .../glass trained data/image_1775727718.jpg        | Bin [31m0[m -> [32m117573[m bytes
+ .../glass trained data/image_1775727719.jpg        | Bin [31m0[m -> [32m117512[m bytes
+ .../glass trained data/image_1775727720.jpg        | Bin [31m0[m -> [32m118719[m bytes
+ .../glass trained data/image_1775727798.jpg        | Bin [31m0[m -> [32m117945[m bytes
+ .../glass trained data/image_1775727799.jpg        | Bin [31m0[m -> [32m115602[m bytes
+ .../glass trained data/image_1775727800.jpg        | Bin [31m0[m -> [32m118581[m bytes
+ .../glass trained data/image_1775728173.jpg        | Bin [31m0[m -> [32m73601[m bytes
+ .../glass trained data/image_1775728174.jpg        | Bin [31m0[m -> [32m74028[m bytes
+ .../glass trained data/image_1775728175.jpg        | Bin [31m0[m -> [32m71164[m bytes
+ .../glass trained data/image_1775728176.jpg        | Bin [31m0[m -> [32m71194[m bytes
+ .../glass trained data/image_1775728181.jpg        | Bin [31m0[m -> [32m75916[m bytes
+ .../glass trained data/image_1775728186.jpg        | Bin [31m0[m -> [32m74005[m bytes
+ .../glass trained data/image_1775728205.jpg        | Bin [31m0[m -> [32m62013[m bytes
+ .../glass trained data/image_1775728212.jpg        | Bin [31m0[m -> [32m73788[m bytes
+ .../glass trained data/image_1775728213.jpg        | Bin [31m0[m -> [32m72889[m bytes
+ .../glass trained data/image_1775728241.jpg        | Bin [31m0[m -> [32m72307[m bytes
+ .../glass trained data/image_1775728243.jpg        | Bin [31m0[m -> [32m69108[m bytes
+ .../glass trained data/image_1775728249.jpg        | Bin [31m0[m -> [32m77514[m bytes
+ .../glass trained data/image_1775728252.jpg        | Bin [31m0[m -> [32m79033[m bytes
+ .../glass trained data/image_1775728257.jpg        | Bin [31m0[m -> [32m76059[m bytes
+ .../glass trained data/image_1775728259.jpg        | Bin [31m0[m -> [32m66626[m bytes
+ .../glass trained data/image_1775728261.jpg        | Bin [31m0[m -> [32m69997[m bytes
+ .../glass trained data/image_1775728406.jpg        | Bin [31m0[m -> [32m71626[m bytes
+ .../glass trained data/image_1775728674.jpg        | Bin [31m0[m -> [32m75050[m bytes
+ .../glass trained data/image_1775728841.jpg        | Bin [31m0[m -> [32m77812[m bytes
+ .../glass trained data/image_1775728850.jpg        | Bin [31m0[m -> [32m76791[m bytes
+ .../glass trained data/image_1775728899.jpg        | Bin [31m0[m -> [32m77122[m bytes
+ .../glass trained data/image_1775728912.jpg        | Bin [31m0[m -> [32m79728[m bytes
+ .../glass trained data/image_1775728915.jpg        | Bin [31m0[m -> [32m80371[m bytes
+ .../glass trained data/image_1775728916.jpg        | Bin [31m0[m -> [32m80611[m bytes
+ .../glass trained data/image_1775728917.jpg        | Bin [31m0[m -> [32m73425[m bytes
+ .../glass trained data/image_1775728943.jpg        | Bin [31m0[m -> [32m78971[m bytes
+ .../glass trained data/image_1775729952.jpg        | Bin [31m0[m -> [32m66662[m bytes
+ .../glass trained data/image_1775729953.jpg        | Bin [31m0[m -> [32m66906[m bytes
+ .../glass trained data/image_1775729954.jpg        | Bin [31m0[m -> [32m74003[m bytes
+ .../glass trained data/image_1775730020.jpg        | Bin [31m0[m -> [32m79826[m bytes
+ .../glass trained data/image_1775730021.jpg        | Bin [31m0[m -> [32m75842[m bytes
+ .../glass trained data/image_1775730068.jpg        | Bin [31m0[m -> [32m74420[m bytes
+ .../glass trained data/image_1775730314.jpg        | Bin [31m0[m -> [32m96957[m bytes
+ .../glass trained data/image_1775730315.jpg        | Bin [31m0[m -> [32m91755[m bytes
+ .../glass trained data/image_1775730316.jpg        | Bin [31m0[m -> [32m87433[m bytes
+ .../glass trained data/image_1775730317.jpg        | Bin [31m0[m -> [32m119192[m bytes
+ .../glass trained data/image_1775730326.jpg        | Bin [31m0[m -> [32m126921[m bytes
+ .../glass trained data/image_1775730327.jpg        | Bin [31m0[m -> [32m102952[m bytes
+ .../glass trained data/image_1775730328.jpg        | Bin [31m0[m -> [32m105445[m bytes
+ .../glass trained data/image_1775730332.jpg        | Bin [31m0[m -> [32m86162[m bytes
+ .../glass trained data/image_1775730333.jpg        | Bin [31m0[m -> [32m109423[m bytes
+ .../glass trained data/image_1775730334.jpg        | Bin [31m0[m -> [32m111850[m bytes
+ .../glass trained data/image_1775730335.jpg        | Bin [31m0[m -> [32m106831[m bytes
+ .../glass trained data/image_1775730336.jpg        | Bin [31m0[m -> [32m101621[m bytes
+ .../glass trained data/image_1775730337.jpg        | Bin [31m0[m -> [32m120491[m bytes
+ .../glass trained data/image_1775730388.jpg        | Bin [31m0[m -> [32m80278[m bytes
+ .../glass trained data/image_1775730389.jpg        | Bin [31m0[m -> [32m98666[m bytes
+ .../glass trained data/image_1775730390.jpg        | Bin [31m0[m -> [32m90488[m bytes
+ .../glass trained data/image_1775730391.jpg        | Bin [31m0[m -> [32m87144[m bytes
+ .../glass trained data/image_1775730396.jpg        | Bin [31m0[m -> [32m91809[m bytes
+ .../glass trained data/mokose_1776667035.jpg       | Bin [31m0[m -> [32m60596[m bytes
+ .../glass trained data/mokose_1776667036.jpg       | Bin [31m0[m -> [32m60655[m bytes
+ .../glass trained data/mokose_1776667037.jpg       | Bin [31m0[m -> [32m60817[m bytes
+ .../glass trained data/mokose_1776667725.jpg       | Bin [31m0[m -> [32m59436[m bytes
+ .../glass trained data/mokose_1776667730.jpg       | Bin [31m0[m -> [32m59617[m bytes
+ .../glass trained data/mokose_1776667733.jpg       | Bin [31m0[m -> [32m62181[m bytes
+ .../glass trained data/mokose_1776667736.jpg       | Bin [31m0[m -> [32m61361[m bytes
+ .../glass trained data/mokose_1776667738.jpg       | Bin [31m0[m -> [32m60451[m bytes
+ .../glass trained data/mokose_1776667739.jpg       | Bin [31m0[m -> [32m51991[m bytes
+ .../glass trained data/mokose_1776667740.jpg       | Bin [31m0[m -> [32m55120[m bytes
+ .../glass trained data/mokose_1776667742.jpg       | Bin [31m0[m -> [32m51383[m bytes
+ .../glass trained data/mokose_1776667794.jpg       | Bin [31m0[m -> [32m56530[m bytes
+ .../glass trained data/mokose_1776667901.jpg       | Bin [31m0[m -> [32m65752[m bytes
+ .../glass trained data/mokose_1776667903.jpg       | Bin [31m0[m -> [32m65660[m bytes
+ .../glass trained data/mokose_1776667904.jpg       | Bin [31m0[m -> [32m64495[m bytes
+ .../glass trained data/mokose_1776667926.jpg       | Bin [31m0[m -> [32m73493[m bytes
+ .../glass trained data/mokose_1776667933.jpg       | Bin [31m0[m -> [32m71442[m bytes
+ .../glass trained data/mokose_1776667945.jpg       | Bin [31m0[m -> [32m81654[m bytes
+ .../glass trained data/mokose_1776667955.jpg       | Bin [31m0[m -> [32m109535[m bytes
+ .../glass trained data/mokose_1776667956.jpg       | Bin [31m0[m -> [32m99396[m bytes
+ .../glass trained data/mokose_1776667958.jpg       | Bin [31m0[m -> [32m100315[m bytes
+ .../glass trained data/mokose_1776667959.jpg       | Bin [31m0[m -> [32m82813[m bytes
+ .../glass trained data/mokose_1776667960.jpg       | Bin [31m0[m -> [32m85831[m bytes
+ .../glass trained data/mokose_1776667961.jpg       | Bin [31m0[m -> [32m93614[m bytes
+ .../glass trained data/mokose_1776667962.jpg       | Bin [31m0[m -> [32m100307[m bytes
+ .../glass trained data/mokose_1776668031.jpg       | Bin [31m0[m -> [32m68789[m bytes
+ .../glass trained data/mokose_1776668033.jpg       | Bin [31m0[m -> [32m63179[m bytes
+ .../glass trained data/mokose_1776668034.jpg       | Bin [31m0[m -> [32m64006[m bytes
+ .../glass trained data/mokose_1776668061.jpg       | Bin [31m0[m -> [32m69764[m bytes
+ .../glass trained data/mokose_1776668067.jpg       | Bin [31m0[m -> [32m77439[m bytes
+ .../glass trained data/mokose_1776668068.jpg       | Bin [31m0[m -> [32m79778[m bytes
+ .../glass trained data/mokose_1776668073.jpg       | Bin [31m0[m -> [32m80714[m bytes
+ .../glass trained data/mokose_1776668074.jpg       | Bin [31m0[m -> [32m75187[m bytes
+ .../glass trained data/mokose_1776668083.jpg       | Bin [31m0[m -> [32m75470[m bytes
+ .../glass trained data/mokose_1776668099.jpg       | Bin [31m0[m -> [32m81453[m bytes
+ .../glass trained data/mokose_1776673751.jpg       | Bin [31m0[m -> [32m78861[m bytes
+ .../glass trained data/mokose_1776673752.jpg       | Bin [31m0[m -> [32m70003[m bytes
+ .../glass trained data/mokose_1776673753.jpg       | Bin [31m0[m -> [32m68200[m bytes
+ .../glass trained data/mokose_1776673754.jpg       | Bin [31m0[m -> [32m71532[m bytes
+ .../glass trained data/mokose_1776673755.jpg       | Bin [31m0[m -> [32m70398[m bytes
+ .../glass trained data/mokose_1776673762.jpg       | Bin [31m0[m -> [32m80028[m bytes
+ .../glass trained data/mokose_1776673778.jpg       | Bin [31m0[m -> [32m69874[m bytes
+ .../glass trained data/mokose_1776673780.jpg       | Bin [31m0[m -> [32m69092[m bytes
+ .../glass trained data/mokose_1776673784.jpg       | Bin [31m0[m -> [32m60483[m bytes
+ .../glass trained data/mokose_1776673786.jpg       | Bin [31m0[m -> [32m61044[m bytes
+ .../glass trained data/mokose_1776673793.jpg       | Bin [31m0[m -> [32m69927[m bytes
+ .../glass trained data/mokose_1776673803.jpg       | Bin [31m0[m -> [32m72337[m bytes
+ .../glass trained data/mokose_1776673834.jpg       | Bin [31m0[m -> [32m85962[m bytes
+ .../glass trained data/mokose_1776673835.jpg       | Bin [31m0[m -> [32m93215[m bytes
+ .../glass trained data/mokose_1776673838.jpg       | Bin [31m0[m -> [32m76333[m bytes
+ .../glass trained data/mokose_1776673842.jpg       | Bin [31m0[m -> [32m77171[m bytes
+ .../glass trained data/mokose_1776673843.jpg       | Bin [31m0[m -> [32m70588[m bytes
+ .../glass trained data/mokose_1776673851.jpg       | Bin [31m0[m -> [32m77297[m bytes
+ .../glass trained data/mokose_1776673866.jpg       | Bin [31m0[m -> [32m68259[m bytes
+ .../glass trained data/mokose_1776673868.jpg       | Bin [31m0[m -> [32m70139[m bytes
+ .../glass trained data/mokose_1776673869.jpg       | Bin [31m0[m -> [32m75767[m bytes
+ .../glass trained data/mokose_1776673870.jpg       | Bin [31m0[m -> [32m72643[m bytes
+ .../glass trained data/mokose_1776673872.jpg       | Bin [31m0[m -> [32m62421[m bytes
+ .../glass trained data/mokose_1776673873.jpg       | Bin [31m0[m -> [32m67161[m bytes
+ .../glass trained data/mokose_1776673874.jpg       | Bin [31m0[m -> [32m67265[m bytes
+ .../glass trained data/mokose_1776673876.jpg       | Bin [31m0[m -> [32m70899[m bytes
+ .../glass trained data/mokose_1776673887.jpg       | Bin [31m0[m -> [32m74093[m bytes
+ .../glass trained data/mokose_1776675161.jpg       | Bin [31m0[m -> [32m68423[m bytes
+ .../glass trained data/mokose_1776675162.jpg       | Bin [31m0[m -> [32m72035[m bytes
+ .../glass trained data/mokose_1776675163.jpg       | Bin [31m0[m -> [32m75693[m bytes
+ .../glass trained data/mokose_1776675164.jpg       | Bin [31m0[m -> [32m72194[m bytes
+ .../glass trained data/mokose_1776675168.jpg       | Bin [31m0[m -> [32m72510[m bytes
+ .../glass trained data/mokose_1776675171.jpg       | Bin [31m0[m -> [32m73472[m bytes
+ .../glass trained data/mokose_1776675172.jpg       | Bin [31m0[m -> [32m91869[m bytes
+ .../glass trained data/mokose_1776675173.jpg       | Bin [31m0[m -> [32m85519[m bytes
+ .../glass trained data/mokose_1776675174.jpg       | Bin [31m0[m -> [32m79478[m bytes
+ .../glass trained data/mokose_1776675175.jpg       | Bin [31m0[m -> [32m82456[m bytes
+ .../glass trained data/mokose_1776675177.jpg       | Bin [31m0[m -> [32m77080[m bytes
+ .../glass trained data/mokose_1776675178.jpg       | Bin [31m0[m -> [32m87324[m bytes
+ .../glass trained data/mokose_1776675179.jpg       | Bin [31m0[m -> [32m89365[m bytes
+ .../glass trained data/mokose_1776675180.jpg       | Bin [31m0[m -> [32m79081[m bytes
+ .../glass trained data/mokose_1776675181.jpg       | Bin [31m0[m -> [32m86518[m bytes
+ .../glass trained data/mokose_1776675192.jpg       | Bin [31m0[m -> [32m65667[m bytes
+ .../glass trained data/mokose_1776675198.jpg       | Bin [31m0[m -> [32m89512[m bytes
+ .../glass trained data/mokose_1776675240.jpg       | Bin [31m0[m -> [32m61069[m bytes
+ .../glass trained data/mokose_1776675241.jpg       | Bin [31m0[m -> [32m71048[m bytes
+ .../glass trained data/mokose_1776675242.jpg       | Bin [31m0[m -> [32m73156[m bytes
+ .../glass trained data/mokose_1776675243.jpg       | Bin [31m0[m -> [32m76764[m bytes
+ .../glass trained data/mokose_1776675244.jpg       | Bin [31m0[m -> [32m72386[m bytes
+ .../glass trained data/mokose_1776675248.jpg       | Bin [31m0[m -> [32m72643[m bytes
+ .../glass trained data/mokose_1776675249.jpg       | Bin [31m0[m -> [32m68188[m bytes
+ .../glass trained data/mokose_1776675250.jpg       | Bin [31m0[m -> [32m65490[m bytes
+ .../glass trained data/mokose_1776675255.jpg       | Bin [31m0[m -> [32m74466[m bytes
+ .../glass trained data/mokose_1776675258.jpg       | Bin [31m0[m -> [32m59820[m bytes
+ .../glass trained data/mokose_1776675264.jpg       | Bin [31m0[m -> [32m66464[m bytes
+ .../glass trained data/mokose_1776675265.jpg       | Bin [31m0[m -> [32m76578[m bytes
+ .../glass trained data/mokose_1776675266.jpg       | Bin [31m0[m -> [32m62544[m bytes
+ .../glass trained data/mokose_1776675267.jpg       | Bin [31m0[m -> [32m62410[m bytes
+ .../glass trained data/mokose_1776675268.jpg       | Bin [31m0[m -> [32m72756[m bytes
+ .../glass trained data/mokose_1776675269.jpg       | Bin [31m0[m -> [32m73686[m bytes
+ .../glass trained data/mokose_1776675271.jpg       | Bin [31m0[m -> [32m75422[m bytes
+ .../glass trained data/mokose_1776675342.jpg       | Bin [31m0[m -> [32m74002[m bytes
+ .../glass trained data/mokose_1776675343.jpg       | Bin [31m0[m -> [32m73907[m bytes
+ .../glass trained data/mokose_1776675344.jpg       | Bin [31m0[m -> [32m69022[m bytes
+ .../glass trained data/mokose_1776675581.jpg       | Bin [31m0[m -> [32m60217[m bytes
+ .../glass trained data/mokose_1776675639.jpg       | Bin [31m0[m -> [32m54241[m bytes
+ .../glass trained data/mokose_1776675642.jpg       | Bin [31m0[m -> [32m69745[m bytes
+ .../glass trained data/mokose_1776675671.jpg       | Bin [31m0[m -> [32m75050[m bytes
+ .../glass trained data/mokose_1776675672.jpg       | Bin [31m0[m -> [32m76958[m bytes
+ .../glass trained data/mokose_1776675673.jpg       | Bin [31m0[m -> [32m74433[m bytes
+ .../glass trained data/mokose_1776675674.jpg       | Bin [31m0[m -> [32m67866[m bytes
+ .../glass trained data/mokose_1776675675.jpg       | Bin [31m0[m -> [32m73015[m bytes
+ .../glass trained data/mokose_1776675686.jpg       | Bin [31m0[m -> [32m68845[m bytes
+ .../glass trained data/mokose_1776675687.jpg       | Bin [31m0[m -> [32m70626[m bytes
+ .../glass trained data/mokose_1776675688.jpg       | Bin [31m0[m -> [32m70038[m bytes
+ .../glass trained data/mokose_1776675689.jpg       | Bin [31m0[m -> [32m69179[m bytes
+ .../glass trained data/mokose_1776675690.jpg       | Bin [31m0[m -> [32m72622[m bytes
+ .../glass trained data/mokose_1776675691.jpg       | Bin [31m0[m -> [32m72594[m bytes
+ .../glass trained data/mokose_1776676003.jpg       | Bin [31m0[m -> [32m60614[m bytes
+ .../glass trained data/mokose_1776676007.jpg       | Bin [31m0[m -> [32m60767[m bytes
+ .../glass trained data/mokose_1776676041.jpg       | Bin [31m0[m -> [32m50036[m bytes
+ .../glass trained data/mokose_1776676061.jpg       | Bin [31m0[m -> [32m64587[m bytes
+ .../glass trained data/mokose_1776676064.jpg       | Bin [31m0[m -> [32m66226[m bytes
+ .../glass trained data/mokose_1776676066.jpg       | Bin [31m0[m -> [32m67665[m bytes
+ .../glass trained data/mokose_1776676075.jpg       | Bin [31m0[m -> [32m57899[m bytes
+ .../glass trained data/mokose_1776676078.jpg       | Bin [31m0[m -> [32m74516[m bytes
+ .../glass trained data/mokose_1776676084.jpg       | Bin [31m0[m -> [32m75378[m bytes
+ .../glass trained data/mokose_1776676085.jpg       | Bin [31m0[m -> [32m74579[m bytes
+ .../glass trained data/mokose_1776676089.jpg       | Bin [31m0[m -> [32m69397[m bytes
+ .../glass trained data/mokose_1776676092.jpg       | Bin [31m0[m -> [32m53360[m bytes
+ .../glass trained data/mokose_1776676094.jpg       | Bin [31m0[m -> [32m69980[m bytes
+ .../glass trained data/mokose_1776676095.jpg       | Bin [31m0[m -> [32m69821[m bytes
+ .../glass trained data/mokose_1776679371.jpg       | Bin [31m0[m -> [32m65561[m bytes
+ .../glass trained data/mokose_1776679372.jpg       | Bin [31m0[m -> [32m66446[m bytes
+ .../glass trained data/mokose_1776679373.jpg       | Bin [31m0[m -> [32m66897[m bytes
+ .../glass trained data/mokose_1776679424.jpg       | Bin [31m0[m -> [32m68321[m bytes
+ .../glass trained data/mokose_1776679425.jpg       | Bin [31m0[m -> [32m86274[m bytes
+ .../glass trained data/mokose_1776679430.jpg       | Bin [31m0[m -> [32m80201[m bytes
+ .../glass trained data/mokose_1776679431.jpg       | Bin [31m0[m -> [32m81731[m bytes
+ .../glass trained data/mokose_1776679432.jpg       | Bin [31m0[m -> [32m83343[m bytes
+ .../glass trained data/mokose_1776679433.jpg       | Bin [31m0[m -> [32m84237[m bytes
+ .../glass trained data/mokose_1776679460.jpg       | Bin [31m0[m -> [32m64452[m bytes
+ .../glass trained data/mokose_1776679461.jpg       | Bin [31m0[m -> [32m57903[m bytes
+ .../glass trained data/mokose_1776679462.jpg       | Bin [31m0[m -> [32m65777[m bytes
+ .../glass trained data/mokose_1776679463.jpg       | Bin [31m0[m -> [32m73657[m bytes
+ .../glass trained data/mokose_1776679464.jpg       | Bin [31m0[m -> [32m83793[m bytes
+ .../glass trained data/mokose_1776679471.jpg       | Bin [31m0[m -> [32m88446[m bytes
+ .../glass trained data/mokose_1776679472.jpg       | Bin [31m0[m -> [32m87607[m bytes
+ .../glass trained data/mokose_1776679473.jpg       | Bin [31m0[m -> [32m77743[m bytes
+ .../glass trained data/mokose_1776679474.jpg       | Bin [31m0[m -> [32m65680[m bytes
+ .../glass trained data/mokose_1776679483.jpg       | Bin [31m0[m -> [32m83067[m bytes
+ .../glass trained data/mokose_1776679484.jpg       | Bin [31m0[m -> [32m77264[m bytes
+ .../glass trained data/mokose_1776679485.jpg       | Bin [31m0[m -> [32m72178[m bytes
+ .../glass trained data/mokose_1776679535.jpg       | Bin [31m0[m -> [32m71251[m bytes
+ .../glass trained data/mokose_1776679538.jpg       | Bin [31m0[m -> [32m77888[m bytes
+ .../glass trained data/mokose_1776679539.jpg       | Bin [31m0[m -> [32m76979[m bytes
+ .../glass trained data/mokose_1776679540.jpg       | Bin [31m0[m -> [32m78993[m bytes
+ .../glass trained data/mokose_1776679541.jpg       | Bin [31m0[m -> [32m77424[m bytes
+ .../glass trained data/mokose_1776679558.jpg       | Bin [31m0[m -> [32m63099[m bytes
+ .../glass trained data/mokose_1776679563.jpg       | Bin [31m0[m -> [32m78316[m bytes
+ .../glass trained data/mokose_1776679564.jpg       | Bin [31m0[m -> [32m67364[m bytes
+ .../glass trained data/mokose_1776679565.jpg       | Bin [31m0[m -> [32m74246[m bytes
+ .../glass trained data/mokose_1776679566.jpg       | Bin [31m0[m -> [32m74706[m bytes
+ .../test/good/image_1775727626.jpg                 | Bin [31m0[m -> [32m75052[m bytes
+ .../test/good/image_1775727719.jpg                 | Bin [31m0[m -> [32m117512[m bytes
+ .../test/good/image_1775727720.jpg                 | Bin [31m0[m -> [32m118719[m bytes
+ .../test/good/image_1775727798.jpg                 | Bin [31m0[m -> [32m117945[m bytes
+ .../test/good/image_1775728249.jpg                 | Bin [31m0[m -> [32m77514[m bytes
+ .../test/good/image_1775728252.jpg                 | Bin [31m0[m -> [32m79033[m bytes
+ .../test/good/image_1775728261.jpg                 | Bin [31m0[m -> [32m69997[m bytes
+ .../test/good/image_1775728674.jpg                 | Bin [31m0[m -> [32m75050[m bytes
+ .../test/good/image_1775728917.jpg                 | Bin [31m0[m -> [32m73425[m bytes
+ .../test/good/image_1775729954.jpg                 | Bin [31m0[m -> [32m74003[m bytes
+ .../test/good/image_1775730020.jpg                 | Bin [31m0[m -> [32m79826[m bytes
+ .../test/good/image_1775730332.jpg                 | Bin [31m0[m -> [32m86162[m bytes
+ .../test/good/image_1775730337.jpg                 | Bin [31m0[m -> [32m120491[m bytes
+ .../test/good/image_1775730388.jpg                 | Bin [31m0[m -> [32m80278[m bytes
+ .../test/good/image_1775730389.jpg                 | Bin [31m0[m -> [32m98666[m bytes
+ .../test/good/image_1775730391.jpg                 | Bin [31m0[m -> [32m87144[m bytes
+ .../test/good/mokose_1776667036.jpg                | Bin [31m0[m -> [32m60655[m bytes
+ .../test/good/mokose_1776667740.jpg                | Bin [31m0[m -> [32m55120[m bytes
+ .../test/good/mokose_1776667742.jpg                | Bin [31m0[m -> [32m51383[m bytes
+ .../test/good/mokose_1776668031.jpg                | Bin [31m0[m -> [32m68789[m bytes
+ .../test/good/mokose_1776668033.jpg                | Bin [31m0[m -> [32m63179[m bytes
+ .../test/good/mokose_1776673803.jpg                | Bin [31m0[m -> [32m72337[m bytes
+ .../test/good/mokose_1776673834.jpg                | Bin [31m0[m -> [32m85962[m bytes
+ .../test/good/mokose_1776673866.jpg                | Bin [31m0[m -> [32m68259[m bytes
+ .../test/good/mokose_1776675172.jpg                | Bin [31m0[m -> [32m91869[m bytes
+ .../test/good/mokose_1776675198.jpg                | Bin [31m0[m -> [32m89512[m bytes
+ .../test/good/mokose_1776675243.jpg                | Bin [31m0[m -> [32m76764[m bytes
+ .../test/good/mokose_1776675264.jpg                | Bin [31m0[m -> [32m66464[m bytes
+ .../test/good/mokose_1776675265.jpg                | Bin [31m0[m -> [32m76578[m bytes
+ .../test/good/mokose_1776675268.jpg                | Bin [31m0[m -> [32m72756[m bytes
+ .../test/good/mokose_1776675671.jpg                | Bin [31m0[m -> [32m75050[m bytes
+ .../test/good/mokose_1776675674.jpg                | Bin [31m0[m -> [32m67866[m bytes
+ .../test/good/mokose_1776675691.jpg                | Bin [31m0[m -> [32m72594[m bytes
+ .../test/good/mokose_1776676064.jpg                | Bin [31m0[m -> [32m66226[m bytes
+ .../test/good/mokose_1776676066.jpg                | Bin [31m0[m -> [32m67665[m bytes
+ .../test/good/mokose_1776676085.jpg                | Bin [31m0[m -> [32m74579[m bytes
+ .../test/good/mokose_1776676089.jpg                | Bin [31m0[m -> [32m69397[m bytes
+ .../test/good/mokose_1776679371.jpg                | Bin [31m0[m -> [32m65561[m bytes
+ .../test/good/mokose_1776679372.jpg                | Bin [31m0[m -> [32m66446[m bytes
+ .../test/good/mokose_1776679462.jpg                | Bin [31m0[m -> [32m65777[m bytes
+ .../test/good/mokose_1776679472.jpg                | Bin [31m0[m -> [32m87607[m bytes
+ .../test/good/mokose_1776679483.jpg                | Bin [31m0[m -> [32m83067[m bytes
+ .../test/good/mokose_1776679563.jpg                | Bin [31m0[m -> [32m78316[m bytes
+ .../test/good/mokose_1776679564.jpg                | Bin [31m0[m -> [32m67364[m bytes
+ .../train/good/image_1775727625.jpg                | Bin [31m0[m -> [32m74172[m bytes
+ .../train/good/image_1775727709.jpg                | Bin [31m0[m -> [32m114290[m bytes
+ .../train/good/image_1775727715.jpg                | Bin [31m0[m -> [32m119611[m bytes
+ .../train/good/image_1775727717.jpg                | Bin [31m0[m -> [32m113809[m bytes
+ .../train/good/image_1775727718.jpg                | Bin [31m0[m -> [32m117573[m bytes
+ .../train/good/image_1775727799.jpg                | Bin [31m0[m -> [32m115602[m bytes
+ .../train/good/image_1775727800.jpg                | Bin [31m0[m -> [32m118581[m bytes

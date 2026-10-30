@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Hybrid Glass Defect Detection — PatchCore + YOLO</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root {
+    --bg: #0d1117; --panel: #161b22; --border: #30363d;
+    --accent: #3fb950; --text: #c9d1d9; --muted: #8b949e;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg); color: var(--text);
+    display: flex; align-items: center; justify-content: center;
+    min-height: 100vh; padding: 24px;
+  }
+  .card {
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: 12px; padding: 40px; max-width: 560px; width: 100%;
+  }
+  h1 { font-size: 22px; margin: 0 0 8px 0; }
+  p.tagline { color: var(--muted); margin: 0 0 28px 0; font-size: 14px; }
+  .status-row {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13px; color: var(--muted); margin-bottom: 24px;
+  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+  a.btn {
+    display: block; text-align: center; text-decoration: none;
+    background: var(--accent); color: #0d1117; font-weight: 600;
+    padding: 14px; border-radius: 8px; font-size: 15px; margin-bottom: 12px;
+  }
+  a.secondary {
+    display: block; text-align: center; text-decoration: none;
+    color: var(--text); border: 1px solid var(--border);
+    padding: 12px; border-radius: 8px; font-size: 14px;
+  }
+  .note {
+    margin-top: 24px; font-size: 12px; color: var(--muted);
+    border-top: 1px solid var(--border); padding-top: 16px; line-height: 1.5;
+  }
+  .stack { margin: 20px 0; display: flex; gap: 6px; flex-wrap: wrap; }
+  .tag {
+    font-size: 11px; background: rgba(63,185,80,0.12); color: var(--accent);
+    padding: 4px 10px; border-radius: 999px; border: 1px solid rgba(63,185,80,0.3);
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <h1>Hybrid Glass Defect Detection</h1>
+  <p class="tagline">PatchCore anomaly detection + YOLOv8 defect detection, fused, running live on a Jetson Orin Nano inspection line.</p>
+
+  <div class="status-row">
+    <span class="dot"></span>
+    <span>Live dashboard runs on-device — link below when the line is active</span>
+  </div>
+
+  <div class="stack">
+    <span class="tag">PatchCore</span>
+    <span class="tag">YOLOv8</span>
+    <span class="tag">Jetson Orin Nano</span>
+    <span class="tag">Flask</span>
+    <span class="tag">Cloudflare Tunnel</span>
+  </div>
+
+  <!-- Replace this href with your Cloudflare Tunnel URL once the dashboard is running -->
+  <a class="btn" href="https://dashboard.yourdomain.com" target="_blank" rel="noopener">
+    Open Live Dashboard
+  </a>
+
+  <a class="secondary" href="https://github.com/sharonchrista/glass-defect-pipeline" target="_blank" rel="noopener">
+    View Source on GitHub
+  </a>
+
+  <div class="note">
+    The live link requires the Jetson to be powered on and the dashboard
+    process running. If the button above doesn't load, the device may be
+    offline. Model weights and dataset are not included in the public
+    repository — see the README for training instructions.
+  </div>
+</div>
+
+</body>
+</html>

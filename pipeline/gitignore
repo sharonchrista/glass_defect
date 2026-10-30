@@ -1,0 +1,23 @@
+__pycache__/
+*.pyc
+
+# Model weights - too large for a normal repo, use Git LFS or GitHub Releases
+models/
+*.ckpt
+*.pt
+
+# Dataset files
+*.zip
+dataset/
+work/
+
+# Runtime artifacts
+runs/
+results/
+
+# Cloudflare tunnel credentials - never commit these
+.cloudflared/
+*.json
+
+# Env
+.env
